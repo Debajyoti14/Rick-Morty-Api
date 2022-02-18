@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import imageLoader from "../imageLoader";
 import styles from "../styles/Home.module.css";
 import { Character, GetCharacterResult } from "../types";
@@ -14,10 +15,21 @@ const Home: NextPage<{ characters: Character[] }> = ({ characters }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {characters.map((character) => {
-        return <div key={character.id}>
-          <h1>{character.name}</h1>
-          <Image loader={imageLoader} unoptimized src={character.image} alt={character.name} width="200px" height="200px"/>
-          </div>;
+        return (
+          <Link href={`/characters/${character.id}`}>
+            <div key={character.id}>
+              <h1>{character.name}</h1>
+              <Image
+                loader={imageLoader}
+                unoptimized
+                src={character.image}
+                alt={character.name}
+                width="200px"
+                height="200px"
+              />
+            </div>
+          </Link>
+        );
       })}
     </div>
   );
